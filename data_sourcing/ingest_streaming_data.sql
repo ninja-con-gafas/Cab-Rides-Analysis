@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS TBL_CLICK_STREAMS
+(
+  CUSTOMER_ID       INT,
+  APP_VERSION       STRING,
+  OS_VERSION        STRING,
+  LAT               FLOAT,
+  LON               FLOAT,
+  PAGE_ID           STRING,
+  BUTTON_ID         STRING,
+  IS_BUTTON_CLICK   STRING,
+  IS_PAGE_VIEW      STRING,
+  IS_SCROLL_UP      STRING,
+  IS_SCROLL_DOWN    STRING,
+  `TIMESTAMP`       TIMESTAMP
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+STORED AS TEXTFILE;
+
+LOAD DATA INPATH "hdfs:///user/livy/feeds_path/click_stream_data"
+OVERWRITE INTO TABLE TBL_CLICK_STREAMS;
