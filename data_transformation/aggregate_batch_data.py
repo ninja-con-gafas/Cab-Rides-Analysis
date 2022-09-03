@@ -22,3 +22,7 @@ bookings_aggregated = bookings.withColumn("trip_date", to_date(col("pickup_times
 bookings_aggregated.createOrReplaceTempView("VW_AGGREGATED_BOOKINGS")
 spark.sql("CREATE TABLE IF NOT EXISTS TBL_AGGREGATED_BOOKINGS \
             AS SELECT * FROM VW_AGGREGATED_BOOKINGS")
+
+bookings_aggregated \
+    .write \
+    .csv("/user/livy/aggregate_batch_data", header="false")
